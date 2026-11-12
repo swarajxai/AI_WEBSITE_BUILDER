@@ -54,7 +54,7 @@ const MyProjects = () => {
           <div className="flex flex-wrap gap-3.5">
             {projects.map((project) => (
               <div
-                onClick={()=>navigate('/projects/${project.id}')}
+                onClick={()=>navigate(`/projects/${project.id}`)}
                 key={project.id}
                 className="relative group w-72 max-sm:mx-auto cursor-pointer bg-gray-900/60 border border-gray-700 rounded-lg overflow-hidden shadow-md hover:shadow-indigo-700/30 hover:border-indigo-800/80 transition-all duration-300"
               >
@@ -93,8 +93,8 @@ const MyProjects = () => {
                   <div onClick={(e)=>e.stopPropagation()}className='flex justify-between items-center mt-6'>
                         <span className='text-xs text-gray-500'>{new Date(project.createdAt).toLocaleDateString()}</span>
                         <div className='flex gap-3 text-white text-sm'>
-                            <button onClick={()=>navigate('/preview/${project.id}')} className='px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-all'>Preview</button>
-                            <button onClick={()=>navigate('/projects/${project.id}')} className='px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-colors'>Open</button>
+                            <button onClick={()=>navigate(`/preview/${project.id}`)} className='px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-all'>Preview</button>
+                            <button onClick={()=>navigate(`/projects/${project.id}`)} className='px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-colors'>Open</button>
                         </div>
                   </div>
                 </div>
