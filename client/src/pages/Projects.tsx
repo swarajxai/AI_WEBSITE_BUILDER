@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { useParams, useNavigate ,Link} from 'react-router-dom'
 import type { Project } from '../types'
 import Sidebar from '../components/Sidebar'
@@ -12,6 +12,7 @@ import {
     FullscreenIcon,ArrowBigDownDashIcon,EyeOffIcon,EyeIcon
 } from 'lucide-react'
 import { dummyConversations, dummyProjects ,dummyVersion} from '../assets/assets'
+import ProjectPreview,{type ProjectPreviewRef} from '../components/ProjectPreview'
 
 const Projects = () => {
     const { projectId } = useParams()
@@ -23,6 +24,7 @@ const Projects = () => {
     const [device, setDevice] = useState<'phone' | 'tablet' | 'desktop'>("desktop")
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSaving, setIsSaving] = useState(false)
+    const previewRef = useRef<ProjectPreviewRef>(null)
 
     const fetchProject = async () => {
         const foundProject = dummyProjects.find(
@@ -140,7 +142,7 @@ const Projects = () => {
             <div className='flex-1 flex overflow-auto'>
                 <Sidebar isMenuOpen = {isMenuOpen} project={project} setProject={(p)=>setProject(p)} isGenerating={isGenerating} setIsGenerating={setIsGenerating}/>
                 <div className='flex-1 p-2 pl-0'>
-                    project preview
+                    <ProjectPreview ref={previewRef} project={project} isGenerating={isGenerating} device={device}/>
                 </div>
             </div>
         </div>
