@@ -20,6 +20,27 @@ const ProjectPreview = forwardRef<ProjectPreviewRef,ProjectPreviewProps>(({proje
         tablet:'w-[768px]',
         desktop:'w-full'
     }
+    useImperativeHandle(ref,()=>({
+        getCode:()=>{
+            const doc = iframeRef.current?.contentDocument;
+            if(!doc) return undefined;
+
+            //1.Remove our selection class / attributes /outline from all elements
+            doc.querySelectorAll(' .ai-selected-element,[data-ai-selected]').forEach((e1)=>{
+                e1.classList.remove('ai-selected-element');
+                e1.removeAttribute('data-ai-selected');
+                (e1 as HTMLElement).style.outline='';
+            })
+            // 2.remove injected style+script from the document
+            const previewStyle = doc.getElementById('ai-preview-style');
+            if(previewStyle) previewStyle.remove();
+            const previewScript = doc.getElementById('ai-preview-script')
+            if(previewScript) previewScript.remove()
+            // 3.serailize clean html
+            const html = doc.documentElement.outerHTML;
+            return html;
+    }
+    }))
     useEffect(()=>{
         const handleMessage = (event:MessageEvent)=>{
             if(event.data.type==='ELEMENT_SELECTED'){
